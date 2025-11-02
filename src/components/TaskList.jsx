@@ -1,5 +1,5 @@
-import { ListTodo } from 'lucide-react';
-import TaskItem from './TaskItem';
+import { ListTodo } from "lucide-react";
+import TaskItem from "./TaskItem";
 
 export const TaskList = ({ tasks, onToggle, onEdit, onDelete }) => {
   if (tasks.length === 0) {
@@ -10,12 +10,11 @@ export const TaskList = ({ tasks, onToggle, onEdit, onDelete }) => {
       </div>
     );
   }
-
   return (
     <div className="space-y-3">
-      {tasks.map(task => (
+      {tasks.map((task) => (
         <TaskItem
-          key={task.id}
+          key={task.taskId}
           task={task}
           onToggle={onToggle}
           onEdit={onEdit}

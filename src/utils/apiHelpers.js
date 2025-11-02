@@ -1,14 +1,15 @@
 const apiHelpers = {
   get: async (url, token) => {
     const res = await fetch(url, {
-      headers: { Authorization: `Bearer ${token}` },
+      headers: { Authorization: token },
     });
     if (!res.ok) throw new Error("Request failed");
     return res.json();
   },
   post: async (url, data, token = null) => {
     const headers = { "Content-Type": "application/json" };
-    if (token) headers["Authorization"] = `Bearer ${token}`;
+    if (token) headers["Authorization"] = token;
+    console.log("POST Request to:", url, "with data:", JSON.stringify(data));
     const res = await fetch(url, {
       method: "POST",
       headers,
@@ -22,7 +23,7 @@ const apiHelpers = {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        Authorization: `${token}`,
       },
       body: JSON.stringify(data),
     });
@@ -30,13 +31,15 @@ const apiHelpers = {
     return res.json();
   },
   delete: async (url, token) => {
+    console.log("DELETE Request to:", url);
     const res = await fetch(url, {
       method: "DELETE",
-      headers: { Authorization: `Bearer ${token}` },
+      headers: { Authorization: `${token}` },
     });
     if (!res.ok) throw new Error("Request failed");
+    if (res.status === 204) return;
     return res.json();
   },
 };
 
-export default apiHelpers;
+export { apiHelpers };

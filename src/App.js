@@ -1,49 +1,46 @@
-import { useState, useEffect } from 'react';
-import Dashboard from './pages/Dashboard';
-import LoginPage from './pages/LoginPage';
-import { storageHelpers } from './utils/storageHelpers';
-import { apiHelpers } from './utils/apiHelpers';
-import { API_ENDPOINTS } from './utils/constants';
+import { useState, useEffect } from "react";
+import Dashboard from "./pages/Dashboard";
+import LoginPage from "./pages/LoginPage";
+import { storageHelpers } from "./utils/storageHelpers";
 
 function App() {
   const [token, setToken] = useState(null);
-  const [user, setUser] = useState(null);
+  const [userName, setUserName] = useState(null);
 
   useEffect(() => {
     // Load token and user from storage on mount
     const savedToken = storageHelpers.getToken();
-    const savedUser = storageHelpers.getUser();
-    
+    const savedUser = storageHelpers.getUserName();
+
     if (savedToken && savedUser) {
       setToken(savedToken);
-      setUser(savedUser);
+      setUserName(savedUser);
     }
   }, []);
 
-  const handleLogin = (authToken, userData) => {
+  const handleLogin = (authToken, user) => {
     setToken(authToken);
-    setUser(userData);
+    setUserName(user);
     storageHelpers.saveToken(authToken);
-    storageHelpers.saveUser(userData);
+    storageHelpers.saveUserName(user);
   };
 
-  const handleLogout = async () => {
+  const handleLogout = () => {
     try {
-      await apiHelpers.post(API_ENDPOINTS.AUTH.LOGOUT, {}, token);
+      storageHelpers.clearStorage();
     } catch (err) {
-      console.error('Logout failed:', err);
+      console.error("Logout failed:", err);
     } finally {
       setToken(null);
-      setUser(null);
-      storageHelpers.clearAll();
+      setUserName(null);
     }
   };
 
-  if (!token || !user) {
+  if (!token) {
     return <LoginPage onLogin={handleLogin} />;
   }
 
-  return <Dashboard user={user} token={token} onLogout={handleLogout} />;
+  return <Dashboard onLogout={handleLogout} />;
 }
 
 export default App;

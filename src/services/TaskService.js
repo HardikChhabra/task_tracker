@@ -1,5 +1,5 @@
-import { apiHelpers } from '../utils/apiHelpers';
-import { API_ENDPOINTS } from '../utils/constants';
+import { apiHelpers } from "../utils/apiHelpers";
+import { API_ENDPOINTS } from "../utils/constants";
 
 export class TaskService {
   static async getTasks(token) {
@@ -11,11 +11,14 @@ export class TaskService {
   }
 
   static async createTask(taskData, token) {
-    return await apiHelpers.post(API_ENDPOINTS.TASKS, {
-      ...taskData,
-      createdAt: new Date().toISOString(),
-      completed: false
-    }, token);
+    return await apiHelpers.post(
+      API_ENDPOINTS.TASKS,
+      {
+        ...taskData,
+        isComplete: false,
+      },
+      token
+    );
   }
 
   static async updateTask(id, taskData, token) {
@@ -28,8 +31,8 @@ export class TaskService {
 
   static async toggleTaskCompletion(task, token) {
     return await apiHelpers.put(
-      API_ENDPOINTS.TASK(task.id),
-      { ...task, completed: !task.completed },
+      API_ENDPOINTS.TASK(task.taskId),
+      { ...task, isComplete: !task.isComplete },
       token
     );
   }

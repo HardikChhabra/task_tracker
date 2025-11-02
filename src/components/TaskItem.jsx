@@ -2,7 +2,13 @@ import { CheckCircle2, Clock, Edit2, Trash2 } from "lucide-react";
 
 export const TaskItem = ({ task, onToggle, onEdit, onDelete }) => {
   return (
-    <div className="bg-neutral-800 rounded-lg p-4 border border-neutral-700 hover:border-neutral-600 transition-colors">
+    <div
+      className="bg-neutral-800 rounded-lg p-4 border border-neutral-700 hover:border-neutral-600 transition-colors"
+      style={{
+        borderLeftWidth: "4px",
+        borderLeftColor: task.color || "#6b7280",
+      }}
+    >
       <div className="flex items-start justify-between gap-4">
         <div className="flex items-start gap-3 flex-1">
           <button
@@ -35,7 +41,7 @@ export const TaskItem = ({ task, onToggle, onEdit, onDelete }) => {
             )}
             <div className="flex items-center gap-2 mt-2 text-xs text-neutral-500">
               <Clock size={14} />
-              <span>{new Date(task.createdAt).toLocaleDateString()}</span>
+              <span>{new Date(task.dueDate).toLocaleDateString()}</span>
             </div>
           </div>
         </div>

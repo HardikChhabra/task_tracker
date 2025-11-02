@@ -19,6 +19,12 @@ export const TaskItem = ({ task, onToggle, onEdit, onDelete }) => {
     return labels[priority] || "Medium";
   };
 
+  const getPriorityClass = (priority) => {
+    if (priority >= 4) return "priority-high";
+    if (priority === 3) return "priority-medium";
+    return "priority-low";
+  };
+
   const formatDate = (dateString) => {
     if (!dateString) return null;
     const date = new Date(dateString);
@@ -39,19 +45,19 @@ export const TaskItem = ({ task, onToggle, onEdit, onDelete }) => {
 
   return (
     <div
-      className="bg-neutral-800 rounded-lg p-4 border border-neutral-700 hover:border-neutral-600 transition-colors"
+      className="card rounded-lg p-4 transition-colors"
       style={{
         borderLeftWidth: "4px",
-        borderLeftColor: task.color || "#6b7280",
+        borderLeftColor: task.color || "var(--task-gray)",
       }}
     >
       <div className="flex items-start justify-between gap-4">
         <div className="flex items-start gap-3 flex-1">
           <button onClick={() => onToggle(task)} className="mt-1 flex-shrink-0">
             {task.isComplete ? (
-              <CheckCircle2 className="text-neutral-500" size={20} />
+              <CheckCircle2 className="text-muted" size={20} />
             ) : (
-              <div className="w-5 h-5 border-2 border-neutral-600 rounded-full hover:border-neutral-500 transition-colors" />
+              <div className="w-5 h-5 border-2 border-secondary rounded-full hover:border-hover transition-colors" />
             )}
           </button>
 
@@ -59,22 +65,16 @@ export const TaskItem = ({ task, onToggle, onEdit, onDelete }) => {
             <div className="flex items-center gap-3 mb-1 flex-wrap">
               <h4
                 className={`text-lg font-medium ${
-                  task.isComplete
-                    ? "text-neutral-500 line-through"
-                    : "text-neutral-200"
+                  task.isComplete ? "text-completed" : "text-secondary"
                 }`}
               >
                 {task.task}
               </h4>
               {task.priority && (
                 <span
-                  className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold ${
-                    task.priority >= 4
-                      ? "bg-red-900/30 text-red-400 border border-red-800"
-                      : task.priority === 3
-                      ? "bg-yellow-900/30 text-yellow-400 border border-yellow-800"
-                      : "bg-neutral-700 text-neutral-400 border border-neutral-600"
-                  }`}
+                  className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold ${getPriorityClass(
+                    task.priority
+                  )}`}
                 >
                   <Flag size={12} />
                   Priority {task.priority} - {getPriorityLabel(task.priority)}
@@ -83,12 +83,10 @@ export const TaskItem = ({ task, onToggle, onEdit, onDelete }) => {
             </div>
 
             {task.description && (
-              <p className="text-neutral-400 text-sm mt-1">
-                {task.description}
-              </p>
+              <p className="text-tertiary text-sm mt-1">{task.description}</p>
             )}
 
-            <div className="flex items-center gap-4 mt-2 text-xs text-neutral-500">
+            <div className="flex items-center gap-4 mt-2 text-xs text-muted">
               <div className="flex items-center gap-1">
                 <Clock size={14} />
                 <span>
@@ -100,7 +98,7 @@ export const TaskItem = ({ task, onToggle, onEdit, onDelete }) => {
               {task.dueDate && (
                 <div
                   className={`flex items-center gap-1 ${
-                    isOverdue(task.dueDate) ? "text-red-400" : ""
+                    isOverdue(task.dueDate) ? "text-overdue" : ""
                   }`}
                 >
                   <Calendar size={14} />
@@ -117,21 +115,15 @@ export const TaskItem = ({ task, onToggle, onEdit, onDelete }) => {
         <div className="flex gap-2 flex-shrink-0">
           <button
             onClick={() => onEdit(task)}
-            className="p-2 hover:bg-neutral-700 rounded transition-colors"
+            className="p-2 hover:bg-tertiary rounded transition-colors"
           >
-            <Edit2
-              className="text-neutral-400 hover:text-neutral-300"
-              size={18}
-            />
+            <Edit2 className="text-tertiary hover:text-secondary" size={18} />
           </button>
           <button
             onClick={() => onDelete(task.taskId)}
-            className="p-2 hover:bg-neutral-700 rounded transition-colors"
+            className="p-2 hover:bg-tertiary rounded transition-colors"
           >
-            <Trash2
-              className="text-neutral-400 hover:text-neutral-300"
-              size={18}
-            />
+            <Trash2 className="text-tertiary hover:text-secondary" size={18} />
           </button>
         </div>
       </div>

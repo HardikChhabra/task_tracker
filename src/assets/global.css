@@ -1,0 +1,215 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Primary Background Colors */
+  --bg-primary: #171717; /* neutral-900 */
+  --bg-secondary: #262626; /* neutral-800 */
+  --bg-tertiary: #404040; /* neutral-700 */
+  --bg-hover: #525252; /* neutral-600 */
+  --bg-active: #737373; /* neutral-500 */
+
+  /* Border Colors */
+  --border-primary: #404040; /* neutral-700 */
+  --border-secondary: #525252; /* neutral-600 */
+  --border-hover: #737373; /* neutral-500 */
+
+  /* Text Colors */
+  --text-primary: #fafafa; /* neutral-100 */
+  --text-secondary: #e5e5e5; /* neutral-200 */
+  --text-tertiary: #a3a3a3; /* neutral-400 */
+  --text-muted: #737373; /* neutral-500 */
+
+  /* Task Color Options */
+  --task-gray: #6b7280;
+  --task-red: #ef4444;
+  --task-orange: #f97316;
+  --task-yellow: #eab308;
+  --task-green: #22c55e;
+  --task-blue: #3b82f6;
+  --task-purple: #8b5cf6;
+  --task-pink: #ec4899;
+
+  /* Priority Colors */
+  --priority-high-bg: rgba(127, 29, 29, 0.3); /* red-900/30 */
+  --priority-high-text: #f87171; /* red-400 */
+  --priority-high-border: #991b1b; /* red-800 */
+
+  --priority-medium-bg: rgba(113, 63, 18, 0.3); /* yellow-900/30 */
+  --priority-medium-text: #facc15; /* yellow-400 */
+  --priority-medium-border: #854d0e; /* yellow-800 */
+
+  --priority-low-bg: #404040; /* neutral-700 */
+  --priority-low-text: #a3a3a3; /* neutral-400 */
+  --priority-low-border: #525252; /* neutral-600 */
+
+  /* Status Colors */
+  --status-overdue: #f87171; /* red-400 */
+  --status-completed: #737373; /* neutral-500 */
+
+  /* Button Colors */
+  --btn-primary-bg: #525252; /* neutral-600 */
+  --btn-primary-hover: #737373; /* neutral-500 */
+  --btn-secondary-bg: #404040; /* neutral-700 */
+  --btn-secondary-hover: #525252; /* neutral-600 */
+
+  /* Form Input Colors */
+  --input-bg: #404040; /* neutral-700 */
+  --input-border: #525252; /* neutral-600 */
+  --input-focus: #737373; /* neutral-500 */
+
+  /* Shadow */
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1),
+    0 8px 10px -6px rgb(0 0 0 / 0.1);
+}
+
+/* Base Styles */
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+/* Utility Classes */
+.bg-primary {
+  background-color: var(--bg-primary);
+}
+
+.bg-secondary {
+  background-color: var(--bg-secondary);
+}
+
+.bg-tertiary {
+  background-color: var(--bg-tertiary);
+}
+
+.bg-hover:hover {
+  background-color: var(--bg-hover);
+}
+
+.text-primary {
+  color: var(--text-primary);
+}
+
+.text-secondary {
+  color: var(--text-secondary);
+}
+
+.text-tertiary {
+  color: var(--text-tertiary);
+}
+
+.text-muted {
+  color: var(--text-muted);
+}
+
+.border-primary {
+  border-color: var(--border-primary);
+}
+
+.border-secondary {
+  border-color: var(--border-secondary);
+}
+
+/* Component-specific Classes */
+.nav-bar {
+  background-color: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-primary);
+}
+
+.card {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-primary);
+}
+
+.card:hover {
+  border-color: var(--border-secondary);
+}
+
+.btn-primary {
+  background-color: var(--btn-primary-bg);
+  color: var(--text-primary);
+}
+
+.btn-primary:hover {
+  background-color: var(--btn-primary-hover);
+}
+
+.btn-secondary {
+  background-color: var(--btn-secondary-bg);
+  color: var(--text-primary);
+}
+
+.btn-secondary:hover {
+  background-color: var(--btn-secondary-hover);
+}
+
+.input-field {
+  background-color: var(--input-bg);
+  color: var(--text-primary);
+  border: 1px solid var(--input-border);
+}
+
+.input-field:focus {
+  border-color: var(--input-focus);
+  outline: none;
+}
+
+.label {
+  color: var(--text-tertiary);
+}
+
+/* Priority Badges */
+.priority-high {
+  background-color: var(--priority-high-bg);
+  color: var(--priority-high-text);
+  border: 1px solid var(--priority-high-border);
+}
+
+.priority-medium {
+  background-color: var(--priority-medium-bg);
+  color: var(--priority-medium-text);
+  border: 1px solid var(--priority-medium-border);
+}
+
+.priority-low {
+  background-color: var(--priority-low-bg);
+  color: var(--priority-low-text);
+  border: 1px solid var(--priority-low-border);
+}
+
+/* Status Classes */
+.text-overdue {
+  color: var(--status-overdue);
+}
+
+.text-completed {
+  color: var(--status-completed);
+  text-decoration: line-through;
+}
+
+/* Task Colors */
+.task-color-gray {
+  background-color: var(--task-gray);
+}
+.task-color-red {
+  background-color: var(--task-red);
+}
+.task-color-orange {
+  background-color: var(--task-orange);
+}
+.task-color-yellow {
+  background-color: var(--task-yellow);
+}
+.task-color-green {
+  background-color: var(--task-green);
+}
+.task-color-blue {
+  background-color: var(--task-blue);
+}
+.task-color-purple {
+  background-color: var(--task-purple);
+}
+.task-color-pink {
+  background-color: var(--task-pink);
+}

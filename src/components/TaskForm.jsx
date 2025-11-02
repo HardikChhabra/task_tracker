@@ -12,14 +12,14 @@ export const TaskForm = ({ onAdd, onCancel, editTask, onUpdate }) => {
   const [error, setError] = useState("");
 
   const colorOptions = [
-    { value: "#6b7280", label: "Gray" },
-    { value: "#ef4444", label: "Red" },
-    { value: "#f97316", label: "Orange" },
-    { value: "#eab308", label: "Yellow" },
-    { value: "#22c55e", label: "Green" },
-    { value: "#3b82f6", label: "Blue" },
-    { value: "#8b5cf6", label: "Purple" },
-    { value: "#ec4899", label: "Pink" },
+    { value: "#6b7280", label: "Gray", class: "task-color-gray" },
+    { value: "#ef4444", label: "Red", class: "task-color-red" },
+    { value: "#f97316", label: "Orange", class: "task-color-orange" },
+    { value: "#eab308", label: "Yellow", class: "task-color-yellow" },
+    { value: "#22c55e", label: "Green", class: "task-color-green" },
+    { value: "#3b82f6", label: "Blue", class: "task-color-blue" },
+    { value: "#8b5cf6", label: "Purple", class: "task-color-purple" },
+    { value: "#ec4899", label: "Pink", class: "task-color-pink" },
   ];
 
   const handleSubmit = () => {
@@ -46,50 +46,46 @@ export const TaskForm = ({ onAdd, onCancel, editTask, onUpdate }) => {
     }
   };
   return (
-    <div className="bg-neutral-800 rounded-lg p-6 border border-neutral-700 mb-6">
-      <h3 className="text-xl font-semibold text-neutral-100 mb-4">
+    <div className="card rounded-lg p-6 mb-6">
+      <h3 className="text-xl font-semibold text-primary mb-4">
         {editTask ? "Edit Task" : "New Task"}
       </h3>
 
       {error && (
-        <div className="bg-neutral-700 border border-neutral-600 text-neutral-300 px-4 py-2 rounded mb-4 text-sm">
+        <div className="bg-tertiary border-secondary text-tertiary px-4 py-2 rounded mb-4 text-sm">
           {error}
         </div>
       )}
 
       <div className="space-y-4">
         <div>
-          <label className="block text-neutral-400 text-sm mb-2">Title</label>
+          <label className="block label text-sm mb-2">Title</label>
           <input
             type="text"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className="w-full bg-neutral-700 text-neutral-100 border border-neutral-600 rounded px-4 py-2.5 focus:outline-none focus:border-neutral-500"
+            className="w-full input-field rounded px-4 py-2.5"
             placeholder="Enter task title"
           />
         </div>
 
         <div>
-          <label className="block text-neutral-400 text-sm mb-2">
-            Description
-          </label>
+          <label className="block label text-sm mb-2">Description</label>
           <textarea
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            className="w-full bg-neutral-700 text-neutral-100 border border-neutral-600 rounded px-4 py-2.5 focus:outline-none focus:border-neutral-500 min-h-24 resize-none"
+            className="w-full input-field rounded px-4 py-2.5 min-h-24 resize-none"
             placeholder="Enter task description (optional)"
           />
         </div>
 
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label className="block text-neutral-400 text-sm mb-2">
-              Priority
-            </label>
+            <label className="block label text-sm mb-2">Priority</label>
             <select
               value={priority}
               onChange={(e) => setPriority(e.target.value)}
-              className="w-full bg-neutral-700 text-neutral-100 border border-neutral-600 rounded px-4 py-2.5 focus:outline-none focus:border-neutral-500"
+              className="w-full input-field rounded px-4 py-2.5"
             >
               <option value="1">1 - Lowest</option>
               <option value="2">2 - Low</option>
@@ -100,9 +96,7 @@ export const TaskForm = ({ onAdd, onCancel, editTask, onUpdate }) => {
           </div>
 
           <div>
-            <label className="block text-neutral-400 text-sm mb-2">
-              Due Date
-            </label>
+            <label className="block label text-sm mb-2">Due Date</label>
             <input
               type="date"
               value={
@@ -111,13 +105,13 @@ export const TaskForm = ({ onAdd, onCancel, editTask, onUpdate }) => {
                   : dueDate
               }
               onChange={(e) => setDueDate(e.target.value)}
-              className="w-full bg-neutral-700 text-neutral-100 border border-neutral-600 rounded px-4 py-2.5 focus:outline-none focus:border-neutral-500"
+              className="w-full input-field rounded px-4 py-2.5"
             />
           </div>
         </div>
 
         <div>
-          <label className="block text-neutral-400 text-sm mb-2">Color</label>
+          <label className="block label text-sm mb-2">Color</label>
           <div className="grid grid-cols-4 gap-3">
             {colorOptions.map((colorOption) => (
               <button
@@ -126,15 +120,15 @@ export const TaskForm = ({ onAdd, onCancel, editTask, onUpdate }) => {
                 onClick={() => setColor(colorOption.value)}
                 className={`flex items-center gap-2 px-3 py-2 rounded border transition-colors ${
                   color === colorOption.value
-                    ? "border-neutral-400 bg-neutral-700"
-                    : "border-neutral-600 bg-neutral-800 hover:bg-neutral-700"
+                    ? "border-secondary bg-tertiary"
+                    : "border-primary bg-secondary hover:bg-tertiary"
                 }`}
               >
                 <div
-                  className="w-5 h-5 rounded-full border-2 border-neutral-900"
-                  style={{ backgroundColor: colorOption.value }}
+                  className={`w-5 h-5 rounded-full border-2 ${colorOption.class}`}
+                  style={{ borderColor: "var(--bg-primary)" }}
                 />
-                <span className="text-neutral-300 text-sm">
+                <span className="text-tertiary text-sm">
                   {colorOption.label}
                 </span>
               </button>
@@ -145,13 +139,13 @@ export const TaskForm = ({ onAdd, onCancel, editTask, onUpdate }) => {
         <div className="flex gap-3">
           <button
             onClick={handleSubmit}
-            className="flex-1 bg-neutral-600 hover:bg-neutral-500 text-neutral-100 font-semibold py-2.5 rounded transition-colors"
+            className="flex-1 btn-primary font-semibold py-2.5 rounded transition-colors"
           >
             {editTask ? "Update" : "Add Task"}
           </button>
           <button
             onClick={onCancel}
-            className="flex-1 bg-neutral-700 hover:bg-neutral-600 text-neutral-100 font-semibold py-2.5 rounded transition-colors"
+            className="flex-1 btn-secondary font-semibold py-2.5 rounded transition-colors"
           >
             Cancel
           </button>

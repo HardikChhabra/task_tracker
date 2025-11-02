@@ -91,20 +91,18 @@ export const Dashboard = ({ onLogout }) => {
   const stats = taskHelpers.getTaskStats(tasks);
 
   return (
-    <div className="min-h-screen bg-neutral-900">
-      <nav className="bg-neutral-800 border-b border-neutral-700 px-6 py-4">
+    <div className="min-h-screen bg-primary">
+      <nav className="nav-bar px-6 py-4">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <LayoutDashboard className="text-neutral-400" size={24} />
-            <h1 className="text-2xl font-bold text-neutral-100">
-              Task Manager
-            </h1>
+            <LayoutDashboard className="text-tertiary" size={24} />
+            <h1 className="text-2xl font-bold text-primary">Task Manager</h1>
           </div>
           <div className="flex items-center gap-4">
-            <span className="text-neutral-400">Welcome, {userName}</span>
+            <span className="text-tertiary">Welcome, {userName}</span>
             <button
               onClick={onLogout}
-              className="flex items-center gap-2 bg-neutral-700 hover:bg-neutral-600 text-neutral-300 px-4 py-2 rounded transition-colors"
+              className="flex items-center gap-2 btn-secondary text-tertiary px-4 py-2 rounded transition-colors"
             >
               <LogOut size={18} />
               Logout
@@ -115,21 +113,19 @@ export const Dashboard = ({ onLogout }) => {
 
       <div className="max-w-6xl mx-auto px-6 py-8">
         <div className="grid grid-cols-3 gap-4 mb-8">
-          <div className="bg-neutral-800 border border-neutral-700 rounded-lg p-6">
-            <div className="text-neutral-400 text-sm mb-1">Total Tasks</div>
-            <div className="text-3xl font-bold text-neutral-100">
-              {stats.total}
-            </div>
+          <div className="card rounded-lg p-6">
+            <div className="label text-sm mb-1">Total Tasks</div>
+            <div className="text-3xl font-bold text-primary">{stats.total}</div>
           </div>
-          <div className="bg-neutral-800 border border-neutral-700 rounded-lg p-6">
-            <div className="text-neutral-400 text-sm mb-1">Completed</div>
-            <div className="text-3xl font-bold text-neutral-100">
+          <div className="card rounded-lg p-6">
+            <div className="label text-sm mb-1">Completed</div>
+            <div className="text-3xl font-bold text-primary">
               {stats.completed}
             </div>
           </div>
-          <div className="bg-neutral-800 border border-neutral-700 rounded-lg p-6">
-            <div className="text-neutral-400 text-sm mb-1">Pending</div>
-            <div className="text-3xl font-bold text-neutral-100">
+          <div className="card rounded-lg p-6">
+            <div className="label text-sm mb-1">Pending</div>
+            <div className="text-3xl font-bold text-primary">
               {stats.pending}
             </div>
           </div>
@@ -141,8 +137,8 @@ export const Dashboard = ({ onLogout }) => {
               onClick={() => setFilter("all")}
               className={`px-4 py-2 rounded transition-colors ${
                 filter === "all"
-                  ? "bg-neutral-600 text-neutral-100"
-                  : "bg-neutral-800 text-neutral-400 hover:bg-neutral-700"
+                  ? "btn-primary"
+                  : "bg-secondary text-tertiary hover:bg-tertiary"
               }`}
             >
               All
@@ -151,8 +147,8 @@ export const Dashboard = ({ onLogout }) => {
               onClick={() => setFilter("pending")}
               className={`px-4 py-2 rounded transition-colors ${
                 filter === "pending"
-                  ? "bg-neutral-600 text-neutral-100"
-                  : "bg-neutral-800 text-neutral-400 hover:bg-neutral-700"
+                  ? "btn-primary"
+                  : "bg-secondary text-tertiary hover:bg-tertiary"
               }`}
             >
               Pending
@@ -161,8 +157,8 @@ export const Dashboard = ({ onLogout }) => {
               onClick={() => setFilter("completed")}
               className={`px-4 py-2 rounded transition-colors ${
                 filter === "completed"
-                  ? "bg-neutral-600 text-neutral-100"
-                  : "bg-neutral-800 text-neutral-400 hover:bg-neutral-700"
+                  ? "btn-primary"
+                  : "bg-secondary text-tertiary hover:bg-tertiary"
               }`}
             >
               Completed
@@ -171,8 +167,8 @@ export const Dashboard = ({ onLogout }) => {
               onClick={() => setFilter("overDue")}
               className={`px-4 py-2 rounded transition-colors ${
                 filter === "overDue"
-                  ? "bg-neutral-600 text-neutral-100"
-                  : "bg-neutral-800 text-neutral-400 hover:bg-neutral-700"
+                  ? "btn-primary"
+                  : "bg-secondary text-tertiary hover:bg-tertiary"
               }`}
             >
               Overdue
@@ -182,7 +178,7 @@ export const Dashboard = ({ onLogout }) => {
           {!showForm && (
             <button
               onClick={() => setShowForm(true)}
-              className="flex items-center gap-2 bg-neutral-600 hover:bg-neutral-500 text-neutral-100 px-4 py-2 rounded transition-colors"
+              className="flex items-center gap-2 btn-primary px-4 py-2 rounded transition-colors"
             >
               <Plus size={20} />
               New Task
@@ -200,9 +196,7 @@ export const Dashboard = ({ onLogout }) => {
         )}
 
         {loading ? (
-          <div className="text-center py-12 text-neutral-500">
-            Loading tasks...
-          </div>
+          <div className="text-center py-12 text-muted">Loading tasks...</div>
         ) : (
           <TaskList
             tasks={filteredTasks}

@@ -22,7 +22,7 @@ export const Dashboard = ({ onLogout }) => {
   const loadTasks = async () => {
     try {
       const data = await TaskService.getTasks(token);
-      setTasks(taskHelpers.sortTasks(data));
+      setTasks(taskHelpers.sortTasks(data, "createdDesc"));
     } catch (err) {
       console.error("Failed to load tasks:", err);
     } finally {
@@ -33,7 +33,7 @@ export const Dashboard = ({ onLogout }) => {
   const handleAddTask = async (taskData) => {
     try {
       const newTask = await TaskService.createTask(taskData, token);
-      setTasks(taskHelpers.sortTasks([...tasks, newTask]));
+      setTasks(taskHelpers.sortTasks([...tasks, newTask]), "createdDesc");
       setShowForm(false);
     } catch (err) {
       console.error("Failed to add task:", err);
@@ -166,6 +166,16 @@ export const Dashboard = ({ onLogout }) => {
               }`}
             >
               Completed
+            </button>
+            <button
+              onClick={() => setFilter("overDue")}
+              className={`px-4 py-2 rounded transition-colors ${
+                filter === "overDue"
+                  ? "bg-neutral-600 text-neutral-100"
+                  : "bg-neutral-800 text-neutral-400 hover:bg-neutral-700"
+              }`}
+            >
+              Overdue
             </button>
           </div>
 

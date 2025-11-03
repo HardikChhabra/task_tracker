@@ -1,4 +1,4 @@
-const API_URL = process.env.REACT_APP_API_BASE_URL;
+const API_URL = "https://todo-api-b6d2.onrender.com";
 export const API_ENDPOINTS = {
   AUTH: {
     LOGIN: `${API_URL}/auth/login`,

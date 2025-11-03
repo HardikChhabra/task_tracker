@@ -4,47 +4,78 @@ import { validationHelpers } from "../utils/validationHelpers";
 import { apiHelpers } from "../utils/apiHelpers";
 import { API_ENDPOINTS } from "../utils/constants";
 
+/**
+ * AuthForm component
+ *
+ * Renders a sign in / sign up form, performs client-side validation,
+ * and calls the API helper to authenticate or register the user.
+ *
+ * @param {Object} props
+ * @param {(token: string, userName: string) => void} props.onLogin - callback invoked on successful auth
+ * @returns {JSX.Element}
+ */
 export const AuthForm = ({ onLogin }) => {
+  // form mode: true = login, false = signup
   const [isLogin, setIsLogin] = useState(true);
+  // controlled form fields
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
+  // UI state for errors and loading indicator
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
+  /**
+   * Submit handler for the form.
+   * Validates inputs, calls the correct API endpoint and invokes onLogin on success.
+   *
+   * @returns {Promise<void>}
+   */
   const handleSubmit = async () => {
+    // clear previous error
     setError("");
 
+    // validate email format
     if (!validationHelpers.validateEmail(email)) {
       setError("Invalid email format");
       return;
     }
 
+    // validate password strength by length
     if (!validationHelpers.validatePassword(password)) {
       setError("Password must be at least 6 characters");
       return;
     }
 
+    // for sign up, ensure name is provided
     if (!isLogin && !validationHelpers.validateRequired(name)) {
       setError("Name is required");
       return;
     }
 
+    // indicate network activity
     setLoading(true);
 
     try {
+      // choose endpoint based on current mode
       const endpoint = isLogin
         ? API_ENDPOINTS.AUTH.LOGIN
         : API_ENDPOINTS.AUTH.SIGNUP;
+      // payload differs for signup (includes name)
       const data = isLogin ? { email, password } : { name, email, password };
       console.log("Submitting to endpoint:", endpoint, "with data:", data);
+
+      // perform POST request via api helper
       const result = await apiHelpers.post(endpoint, data);
 
+      // propagate successful login back to parent
       onLogin(result.token, result.userName);
     } catch (err) {
+      // log and surface a generic error to the user
       console.error("Auth error:", err);
       setError("Authentication failed. Please try again.");
     } finally {
+      // always clear loading state
       setLoading(false);
     }
   };
@@ -52,10 +83,12 @@ export const AuthForm = ({ onLogin }) => {
   return (
     <div className="min-h-screen bg-primary flex items-center justify-center p-4">
       <div className="w-full max-w-md card rounded-lg shadow-2xl p-8">
+        {/* header reflecting mode */}
         <h1 className="text-3xl font-bold text-primary mb-6 text-center">
           {isLogin ? "Sign In" : "Sign Up"}
         </h1>
 
+        {/* show validation / server errors */}
         {error && (
           <div className="bg-tertiary border-secondary text-tertiary px-4 py-3 rounded mb-4 flex items-center gap-2">
             <AlertCircle size={18} />
@@ -64,6 +97,7 @@ export const AuthForm = ({ onLogin }) => {
         )}
 
         <div className="space-y-4">
+          {/* name field only for sign up */}
           {!isLogin && (
             <div>
               <label className="block label text-sm mb-2">Name</label>
@@ -77,6 +111,7 @@ export const AuthForm = ({ onLogin }) => {
             </div>
           )}
 
+          {/* email input */}
           <div>
             <label className="block label text-sm mb-2">Email</label>
             <input
@@ -88,6 +123,7 @@ export const AuthForm = ({ onLogin }) => {
             />
           </div>
 
+          {/* password input; Enter key triggers submit */}
           <div>
             <label className="block label text-sm mb-2">Password</label>
             <input
@@ -100,6 +136,7 @@ export const AuthForm = ({ onLogin }) => {
             />
           </div>
 
+          {/* submit button - disabled while loading */}
           <button
             onClick={handleSubmit}
             disabled={loading}
@@ -109,6 +146,7 @@ export const AuthForm = ({ onLogin }) => {
           </button>
         </div>
 
+        {/* toggle between sign in / sign up */}
         <div className="mt-6 text-center">
           <button
             onClick={() => setIsLogin(!isLogin)}

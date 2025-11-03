@@ -145,23 +145,32 @@ export const TaskForm = ({ onAdd, onCancel, editTask, onUpdate }) => {
 
         <div>
           <label className="block label text-sm mb-2">Color</label>
-          <div className="grid grid-cols-4 gap-3">
+          <div className="grid grid-cols-4 sm:grid-cols-4 gap-2 sm:gap-3">
             {colorOptions.map((colorOption) => (
               <button
                 key={colorOption.value}
                 type="button"
-                onClick={() => setColor(colorOption.value)} // pick color for task
-                className={`flex items-center gap-2 px-3 py-2 rounded border transition-colors ${
+                onClick={() => setColor(colorOption.value)}
+                className={`flex items-center justify-center sm:justify-start gap-2 p-2 sm:px-3 sm:py-2 rounded border-2 transition-colors ${
                   color === colorOption.value
-                    ? "border-secondary bg-tertiary"
-                    : "border-primary bg-secondary hover:bg-tertiary"
+                    ? "bg-tertiary"
+                    : "bg-secondary hover:bg-tertiary"
                 }`}
+                style={{
+                  borderColor:
+                    color === colorOption.value
+                      ? colorOption.value
+                      : "var(--border-primary)",
+                }}
               >
                 <div
-                  className={`w-5 h-5 rounded-full border-2 ${colorOption.class}`}
-                  style={{ borderColor: "var(--bg-primary)" }}
+                  className={`w-5 h-5 sm:w-5 sm:h-5 rounded-full ${colorOption.class}`}
+                  style={{
+                    borderWidth: "2px",
+                    borderColor: "var(--bg-primary)",
+                  }}
                 />
-                <span className="text-tertiary text-sm">
+                <span className="hidden sm:inline text-tertiary text-sm">
                   {colorOption.label}
                 </span>
               </button>

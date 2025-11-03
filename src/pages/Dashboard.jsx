@@ -162,102 +162,117 @@ export const Dashboard = ({ onLogout }) => {
 
   return (
     <div className="min-h-screen bg-primary">
-      <nav className="nav-bar px-6 py-4">
-        <div className="max-w-6xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-3">
+      {/* Navbar spans full width */}
+      <nav className="nav-bar px-4 md:px-6 py-4 w-full">
+        <div className="w-full flex items-center justify-between">
+          <div className="flex items-center gap-2 md:gap-3">
             <LayoutDashboard className="text-tertiary" size={24} />
-            <h1 className="text-2xl font-bold text-primary">Task Manager</h1>
+            {/* Title hidden on mobile, visible on md+ screens */}
+            <h1 className="text-xl md:text-2xl font-bold text-primary hidden md:block">
+              Task Manager
+            </h1>
           </div>
-          <div className="flex items-center gap-4">
-            {/* greet the user by name */}
-            <span className="text-tertiary">Welcome, {userName}</span>
+          <div className="flex items-center gap-2 md:gap-4">
+            {/* Username hidden on small screens, visible on md+ */}
+            <span className="text-tertiary text-sm md:text-base hidden sm:inline">
+              Welcome, {userName}
+            </span>
+            {/* Full button on desktop, circular icon on mobile */}
             <button
               onClick={onLogout}
-              className="flex items-center gap-2 btn-secondary text-tertiary px-4 py-2 rounded transition-colors"
+              className="flex items-center justify-center gap-2 btn-secondary text-tertiary p-2 md:px-4 md:py-2 rounded transition-colors"
             >
               <LogOut size={18} />
-              Logout
+              <span className="hidden md:inline">Logout</span>
             </button>
           </div>
         </div>
       </nav>
 
-      <div className="max-w-6xl mx-auto px-6 py-8">
-        <div className="grid grid-cols-3 gap-4 mb-8">
-          {/* stats summary cards */}
-          <div className="card rounded-lg p-6">
+      <div className="w-full px-4 md:px-6 lg:max-w-6xl lg:mx-auto py-6 md:py-8">
+        {/* Stats cards with centered labels */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-4 mb-6 md:mb-8">
+          <div className="card rounded-lg p-4 md:p-6 text-center">
             <div className="label text-sm mb-1">Total Tasks</div>
-            <div className="text-3xl font-bold text-primary">{stats.total}</div>
+            <div className="text-2xl md:text-3xl font-bold text-primary">
+              {stats.total}
+            </div>
           </div>
-          <div className="card rounded-lg p-6">
+          <div className="card rounded-lg p-4 md:p-6 text-center">
             <div className="label text-sm mb-1">Completed</div>
-            <div className="text-3xl font-bold text-primary">
+            <div className="text-2xl md:text-3xl font-bold text-primary">
               {stats.completed}
             </div>
           </div>
-          <div className="card rounded-lg p-6">
+          <div className="card rounded-lg p-4 md:p-6 text-center">
             <div className="label text-sm mb-1">Pending</div>
-            <div className="text-3xl font-bold text-primary">
+            <div className="text-2xl md:text-3xl font-bold text-primary">
               {stats.pending}
             </div>
           </div>
         </div>
 
-        <div className="flex items-center justify-between mb-6">
-          <div className="flex gap-2">
-            {/* filter buttons - set filter state when clicked */}
-            <button
-              onClick={() => setFilter("all")}
-              className={`px-4 py-2 rounded transition-colors ${
-                filter === "all"
-                  ? "btn-primary"
-                  : "bg-secondary text-tertiary hover:bg-tertiary"
-              }`}
-            >
-              All
-            </button>
-            <button
-              onClick={() => setFilter("pending")}
-              className={`px-4 py-2 rounded transition-colors ${
-                filter === "pending"
-                  ? "btn-primary"
-                  : "bg-secondary text-tertiary hover:bg-tertiary"
-              }`}
-            >
-              Pending
-            </button>
-            <button
-              onClick={() => setFilter("completed")}
-              className={`px-4 py-2 rounded transition-colors ${
-                filter === "completed"
-                  ? "btn-primary"
-                  : "bg-secondary text-tertiary hover:bg-tertiary"
-              }`}
-            >
-              Completed
-            </button>
-            <button
-              onClick={() => setFilter("overDue")}
-              className={`px-4 py-2 rounded transition-colors ${
-                filter === "overDue"
-                  ? "btn-primary"
-                  : "bg-secondary text-tertiary hover:bg-tertiary"
-              }`}
-            >
-              Overdue
-            </button>
+        {/* Filters and New Task button - responsive layout */}
+        <div className="mb-6">
+          {/* Scrollable filters on mobile */}
+          <div className="overflow-x-auto hide-scrollbar mb-3 md:mb-0">
+            <div className="flex gap-2 min-w-max md:min-w-0 pb-2 md:pb-0">
+              <button
+                onClick={() => setFilter("all")}
+                className={`px-4 py-2 rounded transition-colors whitespace-nowrap ${
+                  filter === "all"
+                    ? "btn-primary"
+                    : "bg-secondary text-tertiary hover:bg-tertiary"
+                }`}
+              >
+                All
+              </button>
+              <button
+                onClick={() => setFilter("pending")}
+                className={`px-4 py-2 rounded transition-colors whitespace-nowrap ${
+                  filter === "pending"
+                    ? "btn-primary"
+                    : "bg-secondary text-tertiary hover:bg-tertiary"
+                }`}
+              >
+                Pending
+              </button>
+              <button
+                onClick={() => setFilter("completed")}
+                className={`px-4 py-2 rounded transition-colors whitespace-nowrap ${
+                  filter === "completed"
+                    ? "btn-primary"
+                    : "bg-secondary text-tertiary hover:bg-tertiary"
+                }`}
+              >
+                Completed
+              </button>
+              <button
+                onClick={() => setFilter("overDue")}
+                className={`px-4 py-2 rounded transition-colors whitespace-nowrap ${
+                  filter === "overDue"
+                    ? "btn-primary"
+                    : "bg-secondary text-tertiary hover:bg-tertiary"
+                }`}
+              >
+                Overdue
+              </button>
+            </div>
           </div>
 
-          {/* show button to open new task form when form isn't visible */}
+          {/* New Task button - full width on mobile, right-aligned on desktop */}
           {!showForm && (
             <button
               onClick={() => setShowForm(true)}
-              className="flex items-center gap-2 btn-primary px-4 py-2 rounded transition-colors"
+              className="w-full md:w-auto flex items-center justify-center gap-2 btn-primary px-4 py-2.5 md:py-2 rounded transition-colors md:float-right"
             >
               <Plus size={20} />
               New Task
             </button>
           )}
+
+          {/* Clear float */}
+          <div className="clear-both"></div>
         </div>
 
         {/* conditional form for creating or editing tasks */}

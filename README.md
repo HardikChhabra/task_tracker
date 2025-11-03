@@ -1,4 +1,4 @@
-# Penthara Task Tracker (Frontend)
+# Task Tracker (Frontend)
 
 A React single-page application developed as an assignment for Penthara. This project implements the frontend for a simple task tracker that connects to a separate Express backend: https://github.com/hardikchhabra/todo-api
 
@@ -24,13 +24,28 @@ A React single-page application developed as an assignment for Penthara. This pr
 ## Quick start
 
 1. Clone this repository:
+
+```bash
    git clone https://github.com/hardikchhabra/task_tracker
+```
+
 2. Install dependencies:
+
+```bash
    npm install
+```
+
 3. Run development server:
+
+```bash
    npm run start
+```
+
 4. Build for production:
+
+```bash
    npm run build
+```
 
 ## Notes
 

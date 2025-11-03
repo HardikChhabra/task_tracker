@@ -45,6 +45,8 @@ const validationHelpers = {
   validateRequired: (value) =>
     // uses trim to ensure strings like "   " are considered empty
     value.trim().length > 0,
+
+  /*IDEA: Validation for date to be only in the future? */
 };
 
 export { validationHelpers };

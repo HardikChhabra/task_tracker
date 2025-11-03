@@ -191,9 +191,9 @@ export const Dashboard = ({ onLogout }) => {
 
       <div className="w-full px-4 md:px-6 lg:max-w-6xl lg:mx-auto py-6 md:py-8">
         {/* Stats cards with centered labels */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-4 mb-6 md:mb-8">
+        <div className="grid grid-cols-3 gap-3 md:gap-4 mb-6 md:mb-8">
           <div className="card rounded-lg p-4 md:p-6 text-center">
-            <div className="label text-sm mb-1">Total Tasks</div>
+            <div className="label text-sm mb-1">Total</div>
             <div className="text-2xl md:text-3xl font-bold text-primary">
               {stats.total}
             </div>

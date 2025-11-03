@@ -131,14 +131,14 @@ export const TaskForm = ({ onAdd, onCancel, editTask, onUpdate }) => {
             <label className="block label text-sm mb-2">Due Date</label>
             <input
               type="date"
-              // convert Date to yyyy-mm-dd when dueDate is a Date instance
+              // convert Date to dd-mm-yyyy when dueDate is a Date instance
               value={
                 dueDate instanceof Date
                   ? dueDate.toISOString().split("T")[0]
                   : dueDate
               }
               onChange={(e) => setDueDate(e.target.value)} // store string from input; converted later on submit
-              className="w-full input-field rounded px-4 py-2.5"
+              className="w-full input-field rounded px-4 py-2"
             />
           </div>
         </div>
